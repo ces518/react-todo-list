@@ -46,12 +46,49 @@ class App extends Component {
         }
     }
 
+    // 체크 Toggle함수
+    handleToggle = (id) => {
+        const { todos } = this.state
+
+        // index 찾기
+        const index = todos.findIndex(todo => todo.id === id)
+        const selected = todos[index]
+
+        const nextTodos = [...todos] // 배열복사
+
+        // 기본값 복사 및 checked 값 덮어쓰기
+        nextTodos[index] = {
+            ...selected,
+            checked: !selected.checked
+        }
+
+        this.setState({
+            todos: nextTodos
+        })
+
+        /*
+         slice 함수를 활용한 구현
+        this.setState({
+          todos: [
+            ...todos.slice(0, index),
+            {
+              ...selected,
+              checked: !selected.checked
+            },
+            ...todos.slice(index + 1, todos.length)
+          ]
+        });
+
+        * */
+    }
+
     render() {
         const { input, todos } = this.state
         const {
             handleCreate,
             handleChange,
-            handleKeyPress
+            handleKeyPress,
+            handleToggle
         } = this
 
         return (
@@ -63,7 +100,10 @@ class App extends Component {
                     onCreate={handleCreate}
                 />)
             }>
-                <TodoItemList todos={todos}/>
+                <TodoItemList
+                    todos={todos}
+                    onToggle={handleToggle}
+                />
             </TodoListTemplate>
         )
     }
