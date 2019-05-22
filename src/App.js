@@ -28,6 +28,7 @@ class App extends Component {
     // concat은 새배열을 만드므로 괜찮음.
     handleCreate = () => {
         const { input, todos } = this.state
+
         this.setState({
             input: '',
             todos: todos.concat({
@@ -62,7 +63,7 @@ class App extends Component {
                     onCreate={handleCreate}
                 />)
             }>
-                <TodoItemList/>
+                <TodoItemList todos={todos}/>
             </TodoListTemplate>
         )
     }
