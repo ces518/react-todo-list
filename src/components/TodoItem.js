@@ -7,12 +7,19 @@ class TodoItem extends Component {
         text: '',
         checked: false,
         id: '',
+        color: '',
         onToggle: () => console.warn('onToogle is not defined'),
         onRemove: () => console.warn('onRemove is not defined')
     }
 
+
+    // 최적화
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return this.props.checked !== nextProps.checked
+    }
+
     render() {
-        const { text, checked, id, onToggle, onRemove } = this.props
+        const { text, checked, id, color, onToggle, onRemove } = this.props
         return (
             <div className="todo-item" onClick={() => onToggle(id)}>
                 <div className="remove" onClick={(e) => {
@@ -20,8 +27,11 @@ class TodoItem extends Component {
                     onRemove(id)}
                 }>&times;</div>
                 <div className={`todo-text ${checked ? ' checked' : ''}`} >
-                    <div>{ text }</div>
+                    <div style={{ color }}>{ text }</div>
                 </div>
+                {
+                    checked && (<div className="check-mark">&#x2713;</div>)
+                }
             </div>
         );
     }

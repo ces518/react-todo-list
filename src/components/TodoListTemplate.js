@@ -8,12 +8,15 @@ import './TodoListTemplate.css'
 // <TodoListTemplate> 여기 내용 들 ..</TodoListTemplate>
 // form 은 컴포넌트 랜더링시 사용하는데 jsx형태로 전달받는다.
 // <TodoListTemplate form=(<div>폼자리</div>) > 칠드런자리 ..</TodoListTemplate>
-const TodoListTemplate = ({form, children}) => {
+const TodoListTemplate = ({form, children, palette}) => {
     return (
         <main className="todo-list-template">
             <div className="title">
                 오늘 할일
             </div>
+            <section className="palette-wrapper">
+                { palette }
+            </section>
             <section className="form-wrapper">
                 { form }
             </section>
